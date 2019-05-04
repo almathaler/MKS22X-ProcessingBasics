@@ -8,13 +8,16 @@ Visualizer v;
  */
 class Visualizer {
   float x, y;
+  int wid;
   float [] values;
   float [] speeds;
-  Visualizer(float x, float y) {
+  Visualizer(float x, float y, int wid) {
     this.x = x;
     this.y = y;
-    values = new float[10];
-    speeds = new float[10];
+    this.wid = (int) random(200, wid);
+    int numBars = (int) random(5, 41);
+    values = new float[numBars];
+    speeds = new float[numBars];
     for (int i = 0; i < values.length; i++) {
       values[i] = random(-99, 99);
       speeds[i] = random(2);
@@ -26,12 +29,13 @@ class Visualizer {
     //You can assume 10, but it would be even better 
     //if you could modify it to be larger increments.
     fill(255);
-    rect(x, y, 400, 200);
+    //int randWith = (int) random(100, 400);
+    rect(x, y, wid, 200);
     //This is a 200x400 box.
     //The width of the visualizer is 400! This rect is the border
 
     //the line is the 0 y-value, the top is 100, the bottom is -100
-    line(x, y+100, x+400, y+100);
+    line(x, y+100, x+wid, y+100);
 
     //You need to use a loop. You need to make the HEIGHT of the bars 
     //the values in the array.
@@ -39,7 +43,8 @@ class Visualizer {
     //Positive values are green and go above the line.
     //???WRITE THIS METHOD FIRST!!!
     //THESE ARE WRONG: They just illustrate how they could look
-    float rectWidth = 400/(values.length); //x val of rect will be rectWidth * i
+    float widF = (float) wid; //i made it a float here so width or rects take up all the space
+    float rectWidth = widF/(values.length); //x val of rect will be rectWidth * i
     for (int i = 0; i<values.length; i++){
      if (100-values[i] > 100){
        fill(255, 0, 0); //if the value is (-) and bar below line, red
@@ -76,8 +81,9 @@ class Visualizer {
 }
 
 void setup() {
-  size(600, 500);
-  v = new Visualizer(20, 20);
+  //int wid = (int) random(200, 1000);
+  size(1000, 500);
+  v = new Visualizer(20, 20, 1000);
 }
 void draw() {
   background(255);
