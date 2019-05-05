@@ -3,7 +3,7 @@ color bg,fg;
 
 void setup() {
   size(800, 600);
-  levels = 1;
+  levels = 0;
 }
 
 /*Create Sierpiski's Gasket (google an image of this)
@@ -20,8 +20,9 @@ void gasket(int levels, float v1x, float v1y, float v2x, float v2y, float v3x, f
     //draw a center triangle that is white
     //call gasket on each of the three created triangles, created by the white triangle we j made
     //decreases levels in this new gasket call
-    triangle(v1x, v1y, v2x, v2y, v3x, v3y); //draw the first triangle
-    fill(255);
+    fill(255, 0, 0);
+    triangle(v1x, v1y, v2x, v2y, v3x, v3y); //draw the first triangle (v1 is left, v2 is right and v3 is top)
+    //fill(255);
     if (levels > 0){
       float newv1x = (v1x+v2x)/2; //bottom point
       float newv1y = v1y;
@@ -29,11 +30,13 @@ void gasket(int levels, float v1x, float v1y, float v2x, float v2y, float v3x, f
       float newv2y = (v3y+v2y)/2;
       float newv3x = (v3x+v1x)/2; //left point
       float newv3y = (v3y+v1y)/2;
+     fill(255);
      triangle(newv1x, newv1y, newv2x, newv2y, newv3x, newv3y);
      //gasket on the three triangles remaining
-     gasket(levels-1, v1x, v1y, newv1x, newv1y, newv3x, newv3y); //left triangle (
-     gasket(levels-1, newv1x, newv1y, v2x, v2y, newv2x, newv1y); //bottom right triangle
      gasket(levels-1, newv3x, newv3y, newv2x, newv2y, v3x, v3y); //top triangle
+     gasket(levels-1, newv1x, newv1y, v2x, v2y, newv2x, newv2y); //bottom right triangle
+     gasket(levels-1, v1x, v1y, newv1x, newv1y, newv3x, newv3y); //left triangle (
+     
     }
 }
 
